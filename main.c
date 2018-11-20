@@ -8,6 +8,7 @@ int main() {
     switch (InputYearOrSerilNo){
         case 01: Insert_Sort_Main();
         case 02: Shell_Sort_Main();
+        case 03: BubbleSort_Main();
 //        default:printf("无当前所选题库\n");
     }
     return 0;
@@ -37,7 +38,6 @@ void Insertion_Sort(int array[], int length)
 /* 程序的入口函数 */
 #define ARRAY_LENGTH 10
 int Insert_Sort_Main()
-
 {
     int a[ARRAY_LENGTH];
     int i;
@@ -101,3 +101,68 @@ int Shell_Sort_Main()
 }
 
 //希尔排序 End
+
+//交换类排序-冒泡排序 Start
+void BubbleSort(int R[],int n) //冒泡排序实现函数
+{
+    int flag;
+    int temp;
+    for (int i = n-1; i >= 1 ; --i) {
+        flag = 0;
+        for (int j = 1; j <= i ; ++j) {
+            if(R[j-1] > R[j])
+            {
+                temp = R[j];
+                R[j] = R[j-1];
+                R[j-1] = temp;
+                flag = 1;
+            }
+        }
+        if(flag == 0)
+        {
+            return;;
+        }
+    }
+}
+
+int BubbleSort_Main()
+{
+    int Test[] = {12,21,323,1,34,13,15,16,33,22,2018,233};
+    int n = sizeof(Test)/ sizeof(int);
+    printf("冒泡排序原始数据：\n");
+    for (int i = 0; i < n; ++i) {
+        printf("%d ",Test[i]);
+    }
+    printf("\n");
+    BubbleSort(Test,n);
+    printf("冒泡排序结果：\n");
+    for (int i = 0; i < n; ++i) {
+        printf("%d ",Test[i]);
+    }
+    return 0;
+}
+//交换类排序-冒泡排序 End
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
