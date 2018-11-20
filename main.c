@@ -9,6 +9,8 @@ int main() {
         case 01: Insert_Sort_Main();
         case 02: Shell_Sort_Main();
         case 03: BubbleSort_Main();
+        case 04: QuickSort_Main();
+        case 05: Select_Sort_Main();
 //        default:printf("无当前所选题库\n");
     }
     return 0;
@@ -105,7 +107,7 @@ int Shell_Sort_Main()
 //交换类排序-冒泡排序 Start
 void BubbleSort(int R[],int n) //冒泡排序实现函数
 {
-    int flag;
+    int flag;//变量flag用来标记本趟排序是否发生了交换
     int temp;
     for (int i = n-1; i >= 1 ; --i) {
         flag = 0;
@@ -115,10 +117,10 @@ void BubbleSort(int R[],int n) //冒泡排序实现函数
                 temp = R[j];
                 R[j] = R[j-1];
                 R[j-1] = temp;
-                flag = 1;
+                flag = 1;//如果没发生交换，则flag的值为0；如果发生交换，则flag的值为1
             }
         }
-        if(flag == 0)
+        if(flag == 0)//一趟排序过程中没有发生关键字交换，则证明序列有序，排序结束
         {
             return;;
         }
@@ -143,7 +145,132 @@ int BubbleSort_Main()
 }
 //交换类排序-冒泡排序 End
 
+//交换类排序-快速排序 Start
 
+void QuickSort(int R[],int low,int high)
+//对从R[low]到R[high]的关键字进行排序
+{
+    int temp;
+    int i = low,j = high;
+    if(low < high)
+    {
+        temp = R[low];
+        /**/
+        while(i < j)
+        {
+            while(j > i && R[j] >= temp)
+            {
+                --j;
+            }
+            if(i < j)
+            {
+                R[i] = R[j];
+                ++i;
+            }
+            while(i < j && R[i] < temp)
+            {
+                ++i;
+            }
+            if(i < j)
+            {
+                R[j] = R[i];
+                --j;
+            }
+        }
+        R[i] = temp;
+        QuickSort(R,low,i-1);
+        QuickSort(R,i+1,high);
+    }
+}
+int QuickSort_Main()
+{
+    int Test[] = {12,21,323,1,34,13,15,16,33,22,2018,233};
+    int n = sizeof(Test)/ sizeof(int);
+    printf("交换类排序之快速排序 原始数据：\n");
+    for (int i = 0; i < n; ++i) {
+        printf("%d ",Test[i]);
+    }
+    printf("\n");
+    QuickSort(Test,0,n-1);
+    printf("交换类排序之快速排序 结果数据：\n");
+    for (int i = 0; i < n; ++i) {
+        printf("%d ",Test[i]);
+    }
+    return 0;
+}
+//交换类排序-快速排序 End
+
+//选择类排序-简单选择排序 Start
+
+void SelectSort(int R[],int n)
+{
+    int k;
+    int temp;
+    for (int i = 0; i < n; ++i) {
+        k = i;
+        for (int j = i + 1; j < n; ++j) {
+            if(R[k] > R[j])
+            {
+                k = j;
+            }
+        }
+        temp = R[i];
+        R[i] = R[k];
+        R[k] = temp;
+    }
+}
+
+int Select_Sort_Main()
+{
+    int Test[] = {12,21,323,1,34,13,15,16,33,22,2018,233};
+    int n = sizeof(Test)/ sizeof(int);
+    printf("简单选择排序原始数据：\n");
+    for (int i = 0; i < n; ++i) {
+        printf("%d ",Test[i]);
+    }
+    printf("\n");
+    SelectSort(Test,n);
+    printf("简单选择排序结果：\n");
+    for (int i = 0; i < n; ++i) {
+        printf("%d ",Test[i]);
+    }
+    return 0;
+}
+
+//选择类排序-简单选择排序 End
+
+//选择类排序-堆排序 Start
+
+void Sift(int R[],int low,int high)
+{
+    int i = low,j = 2*i;
+    int temp = R[i];
+    while(j <= high)
+    {
+        if(j < high && R[j] < R[j+1])
+        {
+            ++j;
+        }
+        if(temp < R[j])
+        {
+            R[i] = R[j];
+            i = j;
+            j = 2*i;
+        }
+        else
+        {
+            break;
+        }
+    }
+    R[i] = temp;
+}
+
+void HeapSort(int R[],int n)
+{
+
+}
+
+//选择类排序-堆排序 End
 
 
 
